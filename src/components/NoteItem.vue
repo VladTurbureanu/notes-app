@@ -1,4 +1,6 @@
 <script setup>
+import {useNotesStore} from "@/stores/notes-store";
+
 defineProps({
   noteTitle: {
     type: String,
@@ -7,68 +9,93 @@ defineProps({
   noteText: {
     type: String,
     required: true
+  },
+  noteIndex: {
+    type: Number,
+    required: true
   }
 })
+const useStore = useNotesStore()
+
+/**
+ * Deletes a note in the array
+ * @param index Array index of the note to be deleted
+ */
+function deleteNote(index){
+  // splice is called here to keep reactivity
+  // the list will be updated live
+  useStore.notes.splice(index,1);
+}
+</script>
+
+<script>
+export default {
+  methods: {
+    /**
+     * Forwards the note to the NoteView Component where it will be edited by the user
+     * @param title Title of the note to be edited.
+     * @param text  Content of the note to be edited.
+     * @param index Index of the note to be edited
+     */
+    forwardNote(title, text, index) {
+      this.$router.push({name: 'add-note2', params: {noteTitle: title, noteText: text, noteIndex: index}});
+    }
+  }
+}
 </script>
 
 <template>
-  <div class="item">
-    <div class="details">
-      <h1>{{ noteTitle }}</h1>
-      <div>{{ noteText }}</div>
-    </div>
+  <div class="details">
+    <h3>{{ noteTitle }}</h3>
+    <div>{{ noteText }}</div>
+  </div>
+  <div class = "buttons-container">
+    <button class="edit-button" @click="forwardNote(noteTitle,noteText,noteIndex)">Edit</button>
+    <button class="delete-button" @click="deleteNote(noteIndex)">Delete</button>
   </div>
 </template>
 
 <style scoped>
-.item {
-  margin-top: 2rem;
-  display: flex;
-}
 
 .details {
   flex: 1;
-  margin-left: 1rem;
+  text-align: justify;
 }
 
-
-h3 {
-  font-size: 1.2rem;
-  font-weight: 500;
-  margin-bottom: 0.4rem;
-  color: var(--color-heading);
+.buttons-container{
+  display: flex;
+  justify-content: flex-end;
+}
+.edit-button {
+  background-color: #ADD8E6;
+  border: none;
+  color: white;
+  margin-top: 10px;
+  text-align: center;
+  display: inline-block;
+  font-size: 15px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-@media (min-width: 1024px) {
-  .item {
-    margin-top: 0;
-    padding: 0.4rem 0 1rem calc(var(--section-gap) / 2);
-  }
+.edit-button:hover {
+  background-color: #6592A6;
+}
 
-  .item:before {
-    content: ' ';
-    border-left: 1px solid var(--color-border);
-    position: absolute;
-    left: 0;
-    bottom: calc(50% + 25px);
-    height: calc(50% - 25px);
-  }
+.delete-button {
+  background-color: #FFAEB9;
+  border: none;
+  color: white;
+  margin-top: 10px;
+  text-align: center;
+  display: inline-block;
+  font-size: 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 5px;
+}
 
-  .item:after {
-    content: ' ';
-    border-left: 1px solid var(--color-border);
-    position: absolute;
-    left: 0;
-    top: calc(50% + 25px);
-    height: calc(50% - 25px);
-  }
-
-  .item:first-of-type:before {
-    display: none;
-  }
-
-  .item:last-of-type:after {
-    display: none;
-  }
+.delete-button:hover {
+  background-color: #DD0000;
 }
 </style>

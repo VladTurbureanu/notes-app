@@ -6,7 +6,7 @@ import { RouterLink, RouterView } from 'vue-router'
   <header>
     <div class="wrapper">
       <div class="title-block">
-        <h1 class="green">Notes App</h1>
+        <h1 class="light-blue">Notes App</h1>
       </div>
 
       <nav>
