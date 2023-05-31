@@ -67,7 +67,7 @@ export default {
   justify-content: flex-end;
 }
 .edit-button {
-  background-color: #ADD8E6;
+  background-color: #00ABFF;
   border: none;
   color: white;
   margin-top: 10px;
@@ -79,11 +79,11 @@ export default {
 }
 
 .edit-button:hover {
-  background-color: #6592A6;
+  background-color: #5ECAFF;
 }
 
 .delete-button {
-  background-color: #FFAEB9;
+  background-color: #F23F42;
   border: none;
   color: white;
   margin-top: 10px;

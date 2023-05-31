@@ -80,7 +80,7 @@ export default {
   height: auto;
 }
 .submit-button {
-  background-color: #ADD8E6;
+  background-color: #00ABFF;
   border: none;
   color: white;
   padding: 10px 20px;
@@ -93,7 +93,7 @@ export default {
 }
 
 .submit-button:hover {
-  background-color: #6592A6;
+  background-color: #5ECAFF;
 }
 
 </style>
